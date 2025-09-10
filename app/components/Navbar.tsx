@@ -1,5 +1,6 @@
 import { Home, BookOpen, Layers, Rocket } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router";
 
 export function Navbar() {
   const [active, setActive] = useState("home");
@@ -42,7 +43,7 @@ export function Navbar() {
 
         {/* CTA Button */}
         <div className="hidden sm:block">
-          <button
+          <Link to={'/login'}
             className="ml-6 px-4 py-2 rounded-xl text-sm font-semibold 
               bg-gradient-to-r from-[#8b5cf6] to-[#00f5d4] 
               text-white border border-transparent
@@ -50,7 +51,7 @@ export function Navbar() {
               transition-all duration-300"
           >
             Get Started
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
