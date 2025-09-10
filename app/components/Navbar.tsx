@@ -1,6 +1,7 @@
 import { Home, BookOpen, Layers, Rocket } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
+import logo from '../Assets/logo.png'
 
 export function Navbar() {
   const [active, setActive] = useState("home");
@@ -16,11 +17,12 @@ export function Navbar() {
     <nav className="fixed top-0 left-0 w-full z-50 glass">
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center h-16">
         {/* Logo */}
-        <div className="text-lg font-bold">
-          <span className="bg-gradient-to-r from-[#8b5cf6] to-[#00f5d4] bg-clip-text text-transparent">
-            TypeScript Mastery
+        <Link to={'/'} className="flex items-center ">
+          <img src={logo} className="h-10" />
+          <span className="text-lg font-bold bg-gradient-to-r from-[#8b5cf6] to-[#00f5d4] bg-clip-text text-transparent">
+            Thinqh
           </span>
-        </div>
+        </Link>
 
         {/* Links */}
         <ul className="flex space-x-6">
