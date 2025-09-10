@@ -10,6 +10,8 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { Navbar } from "./components/Navbar";
+import Footer from "./components/Footer";
+
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -33,7 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-screen bg-[#0a0a1a] text-white font-sans antialiased">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -43,13 +45,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <div>
-    <Navbar></Navbar>
-    <main>
-      <Outlet />
-    </main>
-    
-  </div>;
+  return (
+    <div>
+      <Navbar />
+      <main className="max-w-6xl mx-auto px-4 py-10">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
