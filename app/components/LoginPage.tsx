@@ -102,7 +102,7 @@ export function LoginPage() {
               <p className="text-center text-gray-400 mt-4">
                 Don&apos;t have an account?{" "}
                 <Link
-                  to="/auth/register"
+                  to="/register"
                   className="text-purple-400 hover:text-teal-400 font-medium"
                 >
                   Register
