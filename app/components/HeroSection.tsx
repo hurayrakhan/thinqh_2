@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import Lottie from "lottie-react";
 import { ArrowRight } from "lucide-react";
-import aiAnimation from "../Assets/hero.json"; 
+import { HeroAnimation } from "./HeroAnimation";
+
 
 export function HeroSection() {
+
   return (
     <section
       id="home"
@@ -71,7 +72,7 @@ export function HeroSection() {
           className="flex justify-center md:justify-end"
         >
           {/* Option A: Lottie */}
-          <Lottie animationData={aiAnimation} loop={true} />
+          <HeroAnimation></HeroAnimation>
 
           {/* Option B: Image (uncomment if you want an image instead) */}
           {/* <img 
