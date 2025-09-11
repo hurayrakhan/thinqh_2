@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
-import Lottie from "lottie-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { LoginAnimation } from "./LoginAnimation";
+import Swal from "sweetalert2";
 
 // Schema validation
 const loginSchema = z.object({
@@ -19,6 +20,8 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export function LoginPage() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -28,21 +31,49 @@ export function LoginPage() {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    try {
-      const res = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-        credentials: "include", // important for cookies
-      });
+  try {
+    const res = await fetch("https://fast-todo-api-production.up.railway.app/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        accept: "application/json",
+      },
+      body: new URLSearchParams({
+        grant_type: "password",
+        username: data.username,
+        password: data.password,
+        scope: "",
+        client_id: "string",
+        client_secret: "string",
+      }),
+    });
 
-      if (!res.ok) throw new Error("Invalid credentials");
-      const result = await res.json();
-      console.log("Login success:", result);
-    } catch (error: any) {
-      console.error("Login failed:", error.message);
-    }
-  };
+    if (!res.ok) throw new Error("Invalid credentials");
+
+    const result = await res.json();
+
+    // store token in cookie (expires in 1 day)
+    Cookies.set("access_token", result.access_token, { expires: 1, secure: true });
+
+    Swal.fire({
+      icon: "success",
+      title: "Login Successful!",
+      text: "Redirecting to dashboard...",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+
+    // redirect to home/dashboard
+    navigate("/");
+  } catch (error: any) {
+    Swal.fire({
+      icon: "error",
+      title: "Login Failed",
+      text: error.message,
+    });
+  }
+};
+
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-[#0a0a1a]">
