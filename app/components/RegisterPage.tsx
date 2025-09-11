@@ -35,9 +35,9 @@ export function RegisterPage() {
   const onSubmit = async (data: RegisterFormValues) => {
     try {
       const payload = { ...data, role: "user" };
+      console.log(payload)
 
-      const res = await fetch(
-        "https://fast-todo-api-production.up.railway.app/auth/register",
+      const res = await fetch("https://fast-todo-api-production.up.railway.app/auth/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -62,7 +62,7 @@ export function RegisterPage() {
         text: "You can now login with your credentials.",
         confirmButtonText: "Go to Login",
       }).then(() => {
-        window.location.href = "/auth/login"; // redirect to login page
+        window.location.href = "/login"; // redirect to login page
       });
     } catch (error: any) {
       console.error("❌ Registration failed:", error.message);
